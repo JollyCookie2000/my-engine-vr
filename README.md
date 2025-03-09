@@ -53,10 +53,9 @@ dependencies: `sudo apt install ...`.
 
 ### Documentation
 
-TODO: Explain how to build the Doxygen documentation.
-
 The documentation for the engine library can be generated with Doxygen using
-the following command: `doxygen `.
+the following command: `doxygen ./engine/doxygen.conf`. The generated HTML and
+LaTeX documentation will be placed in the `/doc/` directory.
 
 ## Demo
 
