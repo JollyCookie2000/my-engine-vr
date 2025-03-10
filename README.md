@@ -18,6 +18,11 @@ does not work without.**
 **This project was developed as part of my university's curriculum and is
 complete. At this moment, I do not plan on working on it further.**
 
+Authors:
+* [Lorenzo A. P. (JollyCookie2000)](https://github.com/JollyCookie2000)
+* [Bruno M. P. G. (KibouToZetsubou)](https://github.com/KibouToZetsubou)
+* [Patrick S. (patrick-sartori)](https://github.com/patrick-sartori)
+
 ## Repository structure
 
 * `/client/`: A demo project in the form of the Rush Hour game.
@@ -106,7 +111,11 @@ Inside the demo, you can use the following keys:
 
 ## Usage
 
-TODO
+The easiest way to use this game engine library is to modify the included demo
+project.
+
+Known bugs:
+* Having no light sources in the scene crashes the game engine.
 
 ## Example
 
