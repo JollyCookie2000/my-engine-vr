@@ -111,7 +111,162 @@ TODO
 ## Example
 
 ```C++
-// TODO
+#include <iostream>
+#include <memory>
+
+#include <material.hpp>
+#include <mesh.hpp>
+#include <my_engine.hpp>
+#include <node.hpp>
+#include <perspective_camera.hpp>
+#include <point_light.hpp>
+#include <texture.hpp>
+
+int main(int argc, char* argv[]) {
+    MyEngine::init("Demo", 800, 400);
+    MyEngine::set_sky_color(0.53f, 0.81f, 0.92f);
+
+    const auto bricks_texture = std::make_shared<Texture>("./bricks.jpg");
+    const auto bricks_material = std::make_shared<Material>();
+    bricks_material->set_texture(bricks_texture);
+
+    const std::vector<glm::vec3> vertices = {
+        { -0.5f, -0.5f,  0.5f },
+        { -0.5f, -0.5f, -0.5f },
+        {  0.5f, -0.5f, -0.5f },
+        {  0.5f, -0.5f,  0.5f },
+        { -0.5f,  0.5f,  0.5f },
+        {  0.5f,  0.5f,  0.5f },
+        {  0.5f,  0.5f, -0.5f },
+        { -0.5f,  0.5f, -0.5f },
+        {  0.5f, -0.5f,  0.5f },
+        {  0.5f, -0.5f, -0.5f },
+        {  0.5f,  0.5f, -0.5f },
+        {  0.5f,  0.5f,  0.5f },
+        { -0.5f, -0.5f, -0.5f },
+        { -0.5f, -0.5f,  0.5f },
+        { -0.5f,  0.5f,  0.5f },
+        { -0.5f,  0.5f, -0.5f },
+        { -0.5f, -0.5f,  0.5f },
+        {  0.5f, -0.5f,  0.5f },
+        {  0.5f,  0.5f,  0.5f },
+        { -0.5f,  0.5f,  0.5f },
+        {  0.5f, -0.5f, -0.5f },
+        { -0.5f, -0.5f, -0.5f },
+        { -0.5f,  0.5f, -0.5f },
+        {  0.5f,  0.5f, -0.5f }
+    };
+    const std::vector<uint32_t> faces = {
+        0, 1, 2,
+        2, 3, 0,
+        4, 5, 6,
+        6, 7, 4,
+        8, 9, 10,
+        10, 11, 8,
+        12, 13, 14,
+        14, 15, 12,
+        16, 17, 18,
+        18, 19, 16,
+        20, 21, 22,
+        22, 23, 20
+    };
+    const std::vector<glm::vec3> normals = {
+        {  0.0f, -1.0f,  0.0f },
+        {  0.0f, -1.0f,  0.0f },
+        {  0.0f, -1.0f,  0.0f },
+        {  0.0f, -1.0f,  0.0f },
+        {  0.0f,  1.0f,  0.0f },
+        {  0.0f,  1.0f,  0.0f },
+        {  0.0f,  1.0f,  0.0f },
+        {  0.0f,  1.0f,  0.0f },
+        {  1.0f,  0.0f,  0.0f },
+        {  1.0f,  0.0f,  0.0f },
+        {  1.0f,  0.0f,  0.0f },
+        {  1.0f,  0.0f,  0.0f },
+        { -1.0f,  0.0f,  0.0f },
+        { -1.0f,  0.0f,  0.0f },
+        { -1.0f,  0.0f,  0.0f },
+        { -1.0f,  0.0f,  0.0f },
+        {  0.0f,  0.0f,  1.0f },
+        {  0.0f,  0.0f,  1.0f },
+        {  0.0f,  0.0f,  1.0f },
+        {  0.0f,  0.0f,  1.0f },
+        {  0.0f,  0.0f, -1.0f },
+        {  0.0f,  0.0f, -1.0f },
+        {  0.0f,  0.0f, -1.0f },
+        {  0.0f,  0.0f, -1.0f }
+    };
+    const std::vector<glm::vec2> uvs = {
+        { 1.0f, 0.0f },
+        { 1.0f, 1.0f },
+        { 0.0f, 1.0f },
+        { 0.0f, 0.0f },
+        { 0.0f, 0.0f },
+        { 1.0f, 0.0f },
+        { 1.0f, 1.0f },
+        { 0.0f, 1.0f },
+        { 0.0f, 0.0f },
+        { 1.0f, 0.0f },
+        { 1.0f, 1.0f },
+        { 0.0f, 1.0f },
+        { 0.0f, 0.0f },
+        { 1.0f, 0.0f },
+        { 1.0f, 1.0f },
+        { 0.0f, 1.0f },
+        { 0.0f, 0.0f },
+        { 1.0f, 0.0f },
+        { 1.0f, 1.0f },
+        { 0.0f, 1.0f },
+        { 0.0f, 0.0f },
+        { 1.0f, 0.0f },
+        { 1.0f, 1.0f },
+        { 0.0f, 1.0f }
+    };
+    const auto cube = std::make_shared<Mesh>(vertices, faces, normals, uvs);
+    cube->set_material(bricks_material);
+	
+    const auto light = std::make_shared<PointLight>();
+    light->set_position({ 0.0f, 2.0f, 2.0f });
+    light->set_ambient_color({ 0.1f, 0.1f, 0.1f });
+	
+    const auto camera = std::make_shared<PerspectiveCamera>();
+    camera->set_position({ 0.0f, 0.0f, 2.0f });
+	
+    const auto root_node = std::make_shared<Node>();
+	
+    root_node->add_child(light);
+    root_node->add_child(cube);
+    root_node->add_child(camera);
+
+    MyEngine::set_scene(root_node);
+    MyEngine::set_active_camera(camera);
+
+    MyEngine::set_keyboard_callback([](
+                const unsigned char key,
+                const int mouse_x,
+                const int mouse_y) {
+        if (key == 27) { // ESC
+            MyEngine::stop();
+        }
+    });
+
+    float cube_y_rotation = 0.0f;
+
+    while (MyEngine::is_running()) {
+        MyEngine::update();
+
+        cube->set_rotation({ 0.0f, cube_y_rotation, 0.0f });
+        cube_y_rotation += 1.0f;
+
+        MyEngine::clear_screen();
+        MyEngine::render();
+        MyEngine::swap_buffers();
+    }
+
+    MyEngine::quit();
+
+    return 0;
+}
 ```
 
 ![](./demo.gif)
