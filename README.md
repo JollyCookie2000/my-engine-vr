@@ -1,7 +1,5 @@
 # MyEngineVR
 
-***This README is still work in progress***
-
 An OpenGL game engine library for VR applications.
 
 ![](./screenshot.png)
@@ -31,7 +29,7 @@ Authors:
 * `/engine/`: The source code for the game engine library.
 * `/game.sln`: The Visual Studio 22 solution for building both the
   demo and the game engine library.
-* `game.workspace`: The Code::Blocks (TODO: version) workspace for building
+* `game.workspace`: The Code::Blocks workspace for building
   both the demo and the game engine library.
 
 ## Build
@@ -44,7 +42,7 @@ The following development libraries are required:
 * FreeImage 3.18.0
 * GLEW 2.1.0
 * GLM 1.0.1
-* SteamVR 2.5.1
+* [SteamVR 2.5.1](https://store.steampowered.com/app/250820/SteamVR/)
 * C++ 14
 
 ### Windows
@@ -64,17 +62,15 @@ Building on Windows requires Visual Studio 2022.
 
 ### Linux
 
-Building on Windows requires Code::Blocks (TODO: version).
+Building on Linux requires Code::Blocks.
 
-#### Fedora 41
-
-On Fedora 41, use the following command to install the dependencies:
-`sudo dnf install ...`.
-
-#### Ubuntu (TODO: version)
-
-On Ubuntu (TODO: version), use the following command to install the
-dependencies: `sudo apt install ...`.
+1. On Fedora 41, use the following command to install the dependencies:
+   `sudo dnf install freeglut-devel freeimage-devel glew-devel glm-devel`.
+2. Open the `game.workspace` workspace file in the root of the repository.
+3. Choose a build target between *Debug* or *Release*.
+4. Right click on the *engine* project and select *Build*.
+5. The built library files (SO) are in the `/engine/bin/Debug/libengine.so`
+   directory.
 
 ### Documentation
 
